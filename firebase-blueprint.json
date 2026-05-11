@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Stores user statistics and display information.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "totalPredictions": { "type": "number" },
+        "correctResults": { "type": "number" },
+        "correctScores": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "totalPredictions", "correctResults", "correctScores", "accuracy"]
+    },
+    "predictions": {
+      "title": "User Prediction",
+      "description": "Stores individual match predictions made by users.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fixtureId": { "type": "string" },
+        "homeTeam": { "type": "string" },
+        "awayTeam": { "type": "string" },
+        "predictedWinner": { "type": "string" },
+        "predictedScore": { "type": "string" },
+        "actualScore": { "type": "string" },
+        "isCorrectResult": { "type": "boolean" },
+        "isCorrectScore": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["PENDING", "PROCESSED"] }
+      },
+      "required": ["userId", "fixtureId", "predictedWinner", "predictedScore", "timestamp", "status"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "users",
+      "description": "User profiles and stats."
+    },
+    "predictions/{predictionId}": {
+      "schema": "predictions",
+      "description": "Match predictions recorded by users."
+    }
+  }
+}
